@@ -6,9 +6,9 @@ Argus combines provider-neutral policy, isolated execution, model-assisted plann
 
 ## Current implementation
 
-This initial public snapshot contains an **experimental synthetic offline QA slice**: a fixed fixture event, fake model, allowlisted Python tests, a local ledger, hash-bound receipts and an optional Temporal adapter. It rejects arbitrary project code. No live Ollama integration, Cloud/MCP service, general project audit pipeline or production runtime is included.
+This initial public snapshot contains an **experimental synthetic offline QA slice**: a fixed fixture event, fake model, allowlisted Python tests, a local ledger, hash-bound receipts and an optional Temporal adapter. It rejects arbitrary project code. It also provides an offline audit finalizer for caller-collected stage observations and local evidence. No live Ollama integration, Cloud/MCP service, general project executor or production runtime is included.
 
-**Production/beta: NO-GO.** See [status](docs/STATUS.md), [known limitations](docs/KNOWN-LIMITATIONS.md) and [security](SECURITY.md). An unkeyed receipt hash does not authenticate the worker. Strict receipt wire validation remains an open inherited gate; the private owner's unpublished patch was not copied.
+**Production/beta: NO-GO.** See [status](docs/STATUS.md), [known limitations](docs/KNOWN-LIMITATIONS.md) and [security](SECURITY.md). An unkeyed receipt hash does not authenticate the worker. Receipt decoding rejects missing/null wire fields. This public fix was implemented independently of unpublished private work. Neither receipts nor local audit hashes authenticate workers.
 
 ## Local verification
 
@@ -33,6 +33,8 @@ python3 scripts/bootstrap_modules.py
 ```
 
 Private modules default to `update = none`. Authorized operators may opt in with `--with-private`; access is enforced by GitHub. Private modules are not required for the core build or default public bootstrap. Private nested submodules are intentionally not recursively initialized.
+
+Start with [the research and implementation plan](docs/IMPLEMENTATION-PLAN.md) and [audit CLI contract](docs/AUDIT-CONTRACT.md).
 
 See [repository boundaries](docs/REPOSITORIES.md), [product model](docs/PRODUCT-MODEL.md) and [roadmap](docs/ROADMAP.md).
 

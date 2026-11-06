@@ -1,0 +1,61 @@
+{
+  "version": "argus.audit-results/v1",
+  "plan_sha256": "sha256:76028d172f4a5e95c17f4c8485bf6dab4b74a179055af72d11907917fa86a053",
+  "run_id": "synthetic-example-1",
+  "project_id": "fixture-only",
+  "source_sha": "1111111111111111111111111111111111111111",
+  "stages": [
+    {
+      "stage_id": "unit",
+      "state": "PASS",
+      "exit_code": 0,
+      "checks_run": 1,
+      "summary": "Synthetic fixture only",
+      "evidence": [
+        {
+          "path": "unit.txt",
+          "sha256": "sha256:c04d9dcdb61a5199dfb1a12c5cebc37119f07b26f4b781cc480b259fd29710f6"
+        }
+      ]
+    },
+    {
+      "stage_id": "security",
+      "state": "PASS",
+      "exit_code": 0,
+      "checks_run": 1,
+      "summary": "Synthetic fixture only",
+      "evidence": [
+        {
+          "path": "security.txt",
+          "sha256": "sha256:94634d298d32cb903d5ace4919c87c6d85c838d0f872cf632b9fa022d6250241"
+        }
+      ]
+    },
+    {
+      "stage_id": "ml",
+      "state": "PASS",
+      "exit_code": 0,
+      "checks_run": 1,
+      "summary": "Synthetic fixture only",
+      "evidence": [
+        {
+          "path": "ml.txt",
+          "sha256": "sha256:650be0cf900cd3b375f39ff87be74962a710bd7679d7701bd385cc5a80901828"
+        }
+      ]
+    },
+    {
+      "stage_id": "e2e",
+      "state": "PASS",
+      "exit_code": 0,
+      "checks_run": 1,
+      "summary": "Synthetic fixture only",
+      "evidence": [
+        {
+          "path": "e2e.txt",
+          "sha256": "sha256:e60848dc91527e4f699487155a57f5d47d6751b2864a1bcca340f9088231ecd7"
+        }
+      ]
+    }
+  ]
+}

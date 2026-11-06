@@ -1,0 +1,27 @@
+{
+  "version": "argus.audit-plan/v1",
+  "run_id": "synthetic-example-1",
+  "project_id": "fixture-only",
+  "source": {
+    "repository": "synthetic example; no real project was tested",
+    "sha": "1111111111111111111111111111111111111111"
+  },
+  "stages": [
+    {
+      "id": "unit",
+      "kind": "unit"
+    },
+    {
+      "id": "security",
+      "kind": "security"
+    },
+    {
+      "id": "ml",
+      "kind": "ml"
+    },
+    {
+      "id": "e2e",
+      "kind": "e2e"
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Animus-OSC/argus-open/schemas/audit-plan-v1.schema.json",
+  "description": "Structural schema only. The Argus finalizer additionally enforces byte/depth limits, duplicate keys/IDs, text/path restrictions, scope, completeness and local artifact hashes.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "run_id",
+    "project_id",
+    "source",
+    "stages"
+  ],
+  "properties": {
+    "version": {
+      "const": "argus.audit-plan/v1"
+    },
+    "run_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"
+    },
+    "project_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository",
+        "sha"
+      ],
+      "properties": {
+        "repository": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "sha": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        }
+      }
+    },
+    "stages": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 64,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"
+          },
+          "kind": {
+            "enum": [
+              "build",
+              "static",
+              "unit",
+              "integration",
+              "security",
+              "ml",
+              "e2e",
+              "userspace",
+              "custom"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
