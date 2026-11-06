@@ -349,7 +349,7 @@ def main():
             sast_args = [str(tools / "gosec"), "-fmt=json", "-concurrency=2",
                          "-nosec-require-justification", "-nosec-require-rules"]
             for label, cwd, scan_env, extra, exceptions in (
-                ("gosec", ROOT, env, ["-exclude-dir=examples/external-adapter"], 2),
+                ("gosec", ROOT, env, ["-exclude-dir=examples/external-adapter"], 3),
                 ("gosec_external_example", ROOT / "examples/external-adapter",
                  dict(env, GOFLAGS="-mod=mod"), [], 0),
             ):

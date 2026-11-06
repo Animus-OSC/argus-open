@@ -38,10 +38,26 @@ func (g GitArchive) Prepare(ctx context.Context, p v1.Project) (v1.Snapshot, fun
 	return v1.Snapshot{Version: v1.SnapshotVersion, SourceSHA: p.SourceSHA, Ref: dir}, cleanup, nil
 }
 
-// Prepare is used only with an operator-registered synthetic repository.
+// Prepare snapshots the complete operator-registered synthetic repository.
 // Git reads its objects through a private, fixed-config directory; it never
 // loads the registered repository's local config or runs a transport.
 func Prepare(parent context.Context, root, repo, sha string) (string, func(), error) {
+	return prepare(parent, root, repo, sha, "")
+}
+
+// PreparePythonTree snapshots only the fixed python/ subtree for a separately
+// reviewed SDK profile. The caller must independently approve the commit and
+// content; this function does not authorize source execution. A standalone
+// repository with an ordinary .git directory is required, not a Git submodule.
+// All complete-tree safety checks and limits apply to the selected subtree.
+func PreparePythonTree(parent context.Context, root, repo, sha string) (string, func(), error) {
+	return prepare(parent, root, repo, sha, "python")
+}
+
+func prepare(parent context.Context, root, repo, sha, subdir string) (string, func(), error) {
+	if subdir != "" && subdir != "python" {
+		return "", nil, errors.New("unsupported fixed source subtree")
+	}
 	if !shaPattern.MatchString(sha) || !filepath.IsAbs(root) || !filepath.IsAbs(repo) {
 		return "", nil, errors.New("invalid commit identity")
 	}
@@ -79,8 +95,12 @@ func Prepare(parent context.Context, root, repo, sha string) (string, func(), er
 	}
 	cleanup := func() { _ = os.RemoveAll(dir); _ = os.RemoveAll(gitDir) }
 	gitEnv := gitEnvironment(gitDir, objects)
-	// #nosec G204 -- sha is exactly 40 lowercase hex digits; the command and all options are fixed.
-	cmd := exec.CommandContext(ctx, "/usr/bin/git", "archive", "--format=tar", sha)
+	archiveArgs := []string{"archive", "--format=tar", sha}
+	if subdir != "" {
+		archiveArgs = append(archiveArgs, "--", subdir)
+	}
+	// #nosec G204 -- sha is 40 lowercase hex digits; subdir is empty or the fixed python subtree.
+	cmd := exec.CommandContext(ctx, "/usr/bin/git", archiveArgs...)
 	cmd.Dir = gitDir
 	cmd.Env = gitEnv
 	pipe, err := cmd.StdoutPipe()
@@ -105,7 +125,7 @@ func Prepare(parent context.Context, root, repo, sha string) (string, func(), er
 		cleanup()
 		return "", nil, fmt.Errorf("source archive unavailable: %w", waitErr)
 	}
-	if err := verifyCommitTree(ctx, gitDir, gitEnv, dir, sha); err != nil {
+	if err := verifyCommitTree(ctx, gitDir, gitEnv, dir, sha, subdir); err != nil {
 		cleanup()
 		return "", nil, fmt.Errorf("source archive does not match commit tree: %w", err)
 	}
@@ -181,14 +201,18 @@ type treeBlob struct {
 // Git's archive commit header alone is insufficient: export-ignore can omit
 // paths and export-subst can change blobs. Compare every archive file with the
 // exact committed tree, recomputing its Git object ID without filters.
-func verifyCommitTree(ctx context.Context, gitDir string, gitEnv []string, snapshot, sha string) error {
-	if !shaPattern.MatchString(sha) {
+func verifyCommitTree(ctx context.Context, gitDir string, gitEnv []string, snapshot, sha, subdir string) error {
+	if !shaPattern.MatchString(sha) || (subdir != "" && subdir != "python") {
 		return errors.New("invalid commit identity")
 	}
 	treeCtx, cancel := context.WithCancel(ctx)
 	defer cancel()
-	// #nosec G204 -- sha is exactly 40 lowercase hex digits; all Git options are fixed.
-	cmd := exec.CommandContext(treeCtx, "/usr/bin/git", "ls-tree", "-r", "-z", "--full-tree", "-l", sha)
+	treeArgs := []string{"ls-tree", "-r", "-z", "--full-tree", "-l", sha}
+	if subdir != "" {
+		treeArgs = append(treeArgs, "--", subdir)
+	}
+	// #nosec G204 -- sha is 40 lowercase hex digits; subdir is empty or the fixed python subtree.
+	cmd := exec.CommandContext(treeCtx, "/usr/bin/git", treeArgs...)
 	cmd.Dir, cmd.Env = gitDir, gitEnv
 	pipe, err := cmd.StdoutPipe()
 	if err != nil {
@@ -211,7 +235,8 @@ func verifyCommitTree(ctx context.Context, gitDir string, gitEnv []string, snaps
 		header, rawName, ok := bytes.Cut(raw, []byte{'\t'})
 		fields, name := strings.Fields(string(header)), string(rawName)
 		if !ok || len(fields) != 4 || (fields[0] != "100644" && fields[0] != "100755") ||
-			fields[1] != "blob" || !shaPattern.MatchString(fields[2]) || !validPath(name) {
+			fields[1] != "blob" || !shaPattern.MatchString(fields[2]) || !validPath(name) ||
+			(subdir != "" && !strings.HasPrefix(name, subdir+"/")) {
 			return errors.New("unsupported commit tree entry")
 		}
 		size, err := strconv.ParseInt(fields[3], 10, 64)
