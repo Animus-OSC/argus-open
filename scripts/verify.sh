@@ -31,7 +31,7 @@ unshare --user --map-current-user --net -- /usr/bin/env -i \
     cd "$1"
     unformatted="$("$3" -l api cmd internal pkg adapters examples)"
     if [[ -n "$unformatted" ]]; then printf "unformatted Go files:\n%s\n" "$unformatted" >&2; exit 1; fi
-    /bin/bash -n scripts/verify.sh scripts/verify-offline.sh scripts/verify-temporal.sh
+    /bin/bash -n scripts/verify.sh scripts/verify-offline.sh scripts/verify-temporal.sh scripts/verify-sdk-profile.sh
     /usr/bin/python3 -B -m unittest discover -s scripts -p "test_*.py"
     "$2" test -mod=vendor -p 2 -count=1 ./...
     if [[ "$ARGUS_RACE" == 1 ]]; then "$2" test -mod=vendor -race -p 2 -count=1 ./...; fi

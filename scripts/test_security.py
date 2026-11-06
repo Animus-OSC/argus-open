@@ -219,7 +219,7 @@ class SecurityGateTests(unittest.TestCase):
                     return completed(command, rc=int(bool(issues)), stdout=json.dumps({
                         "GosecVersion": "2.29.0", "Issues": issues,
                         "Stats": {"files": 1, "lines": 1, "found": len(issues),
-                                  "nosec": 0 if external else 2}}))
+                                  "nosec": 0 if external else 3}}))
                 if executable == str(tools / "gitleaks"):
                     return completed(command, stdout="[]", stderr="scanned ~1 bytes")
                 raise AssertionError("unexpected external call: " + repr(command))

@@ -1,4 +1,4 @@
-// Argus provides a synthetic demo, receipt verification and an offline audit finalizer.
+// Argus provides a synthetic demo, receipt verification, offline audits and a pinned SDK unit profile.
 package main
 
 import (
@@ -26,10 +26,12 @@ func main() { os.Exit(run(os.Args[1:], os.Stdout, os.Stderr)) }
 
 func run(args []string, stdout, stderr io.Writer) int {
 	if len(args) == 0 {
-		fmt.Fprintln(stderr, "usage: argus demo --state-dir ABSOLUTE_PATH --out NEW_FILE | verify --receipt FILE --sha256 DIGEST | audit --plan FILE --plan-sha256 DIGEST --results FILE --artifacts DIR --out NEW_FILE")
+		fmt.Fprintln(stderr, "usage: argus demo --state-dir ABSOLUTE_PATH --out NEW_FILE | verify --receipt FILE --sha256 DIGEST | run-profile --profile ID --repo DIR --source-sha SHA --run-id ID --out-dir NEW_DIR | audit --plan FILE --plan-sha256 DIGEST --results FILE --artifacts DIR --out NEW_FILE")
 		return 2
 	}
 	switch args[0] {
+	case "run-profile":
+		return profileCommand(args[1:], stdout, stderr)
 	case "audit":
 		return auditCommand(args[1:], stdout, stderr)
 	case "demo":

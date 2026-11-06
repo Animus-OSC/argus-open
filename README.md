@@ -6,7 +6,7 @@ Argus combines provider-neutral policy, isolated execution, model-assisted plann
 
 ## Current implementation
 
-This initial public snapshot contains an **experimental synthetic offline QA slice**: a fixed fixture event, fake model, allowlisted Python tests, a local ledger, hash-bound receipts and an optional Temporal adapter. It rejects arbitrary project code. It also provides an offline audit finalizer for caller-collected stage observations and local evidence. No live Ollama integration, Cloud/MCP service, general project executor or production runtime is included.
+This experimental public core contains an **experimental synthetic offline QA slice**: a fixed fixture event, fake model, allowlisted Python tests, a local ledger, hash-bound receipts and an optional Temporal adapter. It rejects arbitrary project code. It also provides an offline audit finalizer for caller-collected stage observations and local evidence. A separate [pinned DataLab SDK unit profile](docs/SDK-UNIT-PROFILE.md) runs 33 real stdlib tests in a disposable Linux sandbox and produces audit.md. No live Ollama integration, Cloud/MCP service, general project executor or production runtime is included.
 
 **Production/beta: NO-GO.** See [status](docs/STATUS.md), [known limitations](docs/KNOWN-LIMITATIONS.md) and [security](SECURITY.md). An unkeyed receipt hash does not authenticate the worker. Receipt decoding rejects missing/null wire fields. This public fix was implemented independently of unpublished private work. Neither receipts nor local audit hashes authenticate workers.
 

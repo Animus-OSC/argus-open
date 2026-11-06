@@ -2,10 +2,12 @@
 
 The public receipt decoder now enforces required non-nullable wire fields. Canonical hashes still do not establish producer identity or proof of execution. Production verification remains blocked by the trust gates below.
 
-The worker only accepts byte-exact synthetic fixtures. The local event key is public. A trusted activity can self-hash fabricated evidence; hashes do not establish worker authenticity or test semantics. Ledger path checks assume trusted stable storage and do not prevent a hostile same-user race.
+The existing worker only accepts byte-exact synthetic fixtures. A separate local profile additionally accepts one reviewed public SDK commit and fixed unit operation. The local event key is public. A trusted activity can self-hash fabricated evidence; hashes do not establish worker authenticity or test semantics. Ledger path checks assume trusted stable storage and do not prevent a hostile same-user race.
 
 Private Cloud/Enterprise/DataLab modules are optional and do not supply missing core authorization. No automatic external inference, model fallback, production deployment or paid compute is enabled.
 
 The public receipt fix is independently implemented; unpublished work in the private R&D repository was not copied.
 
 The audit finalizer trusts caller declarations and a stable local evidence store. It checks completeness and hashes, not scanner/test semantics. A killed finalizer cannot guarantee report delivery; durable recovery, authenticated collectors, real project profiles and production promotion are still open. See AUDIT-CONTRACT.md.
+
+The SDK unit profile trusts the operator-owned Git object store, runtime and stable local filesystem. Test code shares the driver interpreter; typed output is not an independently authenticated proof. It provides neither distributed exactly-once admission nor a general hostile-project sandbox. A successful SDK suite does not establish DataLab training/service/userspace or ML quality.

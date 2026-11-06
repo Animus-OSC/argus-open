@@ -13,3 +13,7 @@ The CLI demo is synthetic-only. Preserve unknown-execution fences; do not delete
 The provider-neutral argus audit finalizes caller-collected observations without executing project code. See [contract and exit codes](AUDIT-CONTRACT.md). A local report PASS does not grant production permission.
 
 Receipt schema acceptance is an explicit separate test-only gate, with a real date-time checker and pinned dependencies: [schema test instructions](../pkg/evidence/SCHEMA-TESTS.md). Missing tooling returns BLOCKED. It is not silently counted as part of the dependency-free offline entrypoint.
+
+## Pinned SDK unit profile
+
+See [SDK-UNIT-PROFILE.md](SDK-UNIT-PROFILE.md) for the fixed source, command, result semantics and explicit prepared-source integration acceptance. It uses no Cloud account or private platform module.

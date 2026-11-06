@@ -8,4 +8,4 @@ No production deployment, release, protected-policy change, secret access, runne
 
 Private module initialization is explicit and permission-bound. Do not copy Cloud/Enterprise/DataLab implementation, credentials, internal logs or private history into this public repository. Preserve upstream notices. Changes to public/private boundaries or security-sensitive code require independent review.
 
-Current runtime scope is synthetic-only. Product plans and submodule availability are not implemented runtime capabilities. Do not turn absent or skipped checks into PASS.
+Runtime execution is limited to the byte-exact synthetic worker and the separate reviewed, source-pinned DataLab SDK unit profile. The latter does not authorize arbitrary revisions or commands. Product plans and submodule availability are not implemented runtime capabilities. Do not turn absent or skipped checks into PASS.
