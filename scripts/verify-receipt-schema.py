@@ -78,7 +78,8 @@ def validate_corpus(schema, corpus):
             control[flag] for flag in ("schema_valid", "decode_valid", "verify_valid")
         ):
             raise ValueError("missing valid " + name.upper() + " control")
-        if not isinstance(bases[name], dict) or bases[name].get("receipt", {}).get("state") != name.upper():
+        receipt = bases[name].get("receipt") if isinstance(bases[name], dict) else None
+        if not isinstance(receipt, dict) or receipt.get("state") != name.upper():
             raise ValueError("invalid " + name.upper() + " corpus base")
 
     def required_paths(node, prefix=()):

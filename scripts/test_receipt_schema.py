@@ -30,6 +30,13 @@ class ReceiptSchemaCorpusTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             gate.validate_corpus(self.schema, self.corpus)
 
+    def test_malformed_base_receipt_is_blocked(self):
+        for receipt in (None, [], "receipt", 0):
+            with self.subTest(receipt=receipt):
+                self.corpus["bases"]["pass"]["receipt"] = receipt
+                with self.assertRaises(ValueError):
+                    gate.validate_corpus(self.schema, self.corpus)
+
     def test_wrong_version_is_blocked(self):
         for version in (True, 0, 2, "1"):
             with self.subTest(version=version):
