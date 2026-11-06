@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://argus.invalid/schemas/task-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "task_id", "tenant_id", "project_id", "source_sha", "idempotency_key", "signature"],
+  "properties": {
+    "version": {"const": "argus.task/v1"},
+    "task_id": {"$ref": "#/$defs/id"},
+    "tenant_id": {"$ref": "#/$defs/id"},
+    "project_id": {"$ref": "#/$defs/id"},
+    "source_sha": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "idempotency_key": {"$ref": "#/$defs/id"},
+    "signature": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "$defs": {"id": {"type": "string", "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}$"}}
+}

@@ -1,0 +1,50 @@
+# Local secrets and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.token
+*.secrets
+credentials.json
+
+# Private runtime state, workspaces, and model payloads
+.cache/
+.local/
+.runtime/
+.scratch/
+workspaces/
+model-store/
+models/*.gguf
+*.gguf
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+
+# Build and test outputs
+bin/
+build/
+dist/
+coverage/
+coverage.*
+*.prof
+*.test
+*.log
+__pycache__/
+.pytest_cache/
+.venv/
+venv/
+node_modules/
+target/
+
+# Local operational evidence
+evidence/private/
+receipts/private/
+
+# IDE and OS
+.DS_Store
+.idea/
+.vscode/

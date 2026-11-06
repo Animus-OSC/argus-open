@@ -1,0 +1,8 @@
+Argus Open Source
+Copyright 2026 Animus contributors.
+
+First-party code is published under Apache License 2.0.
+Vendored dependencies retain the licenses and notices shipped in vendor/.
+This public snapshot does not grant a license to any private submodule implementation.
+
+The vendored nexus-proto-annotations generated source is MIT-licensed by Temporal Technologies Inc.; see third_party/notices/nexus-proto-annotations-LICENSE.txt and its provenance record. The copied source is unchanged.

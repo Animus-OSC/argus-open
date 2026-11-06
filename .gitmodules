@@ -1,0 +1,24 @@
+[submodule "modules/sdk"]
+	path = modules/sdk
+	url = https://github.com/Animus-OSC/argus-sdk.git
+	update = checkout
+[submodule "examples/datalab-sdk"]
+	path = examples/datalab-sdk
+	url = https://github.com/Animus-OSC/animus-datalab-sdk.git
+	update = checkout
+[submodule "modules/cloud"]
+	path = modules/cloud
+	url = https://github.com/Animus-OSC/argus-cloud.git
+	update = none
+[submodule "modules/enterprise"]
+	path = modules/enterprise
+	url = https://github.com/Animus-OSC/argus-enterprise.git
+	update = none
+[submodule "testbeds/datalab"]
+	path = testbeds/datalab
+	url = https://github.com/Animus-OSC/animus-ml-datalab.git
+	update = none
+[submodule "research/argus-rd"]
+	path = research/argus-rd
+	url = https://github.com/Animus-OSC/argus.git
+	update = none

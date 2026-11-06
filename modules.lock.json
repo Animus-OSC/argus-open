@@ -1,0 +1,48 @@
+{
+  "schema": "argus.repository-modules/v1",
+  "modules": [
+    {
+      "path": "modules/sdk",
+      "repository": "argus-sdk",
+      "sha": "b88c23f6a60a6b1c27bd662cf31656501df9b9c3",
+      "visibility": "public",
+      "url": "https://github.com/Animus-OSC/argus-sdk.git"
+    },
+    {
+      "path": "examples/datalab-sdk",
+      "repository": "animus-datalab-sdk",
+      "sha": "836c8dabf1899aec173ad2c240dfaa8b4968a297",
+      "visibility": "public",
+      "candidate": "Draft PR #18; not merged/released",
+      "url": "https://github.com/Animus-OSC/animus-datalab-sdk.git"
+    },
+    {
+      "path": "modules/cloud",
+      "repository": "argus-cloud",
+      "sha": "f5e3f34a46d4ebbda35f6e5d9cae43a9c79e0beb",
+      "visibility": "private",
+      "url": "https://github.com/Animus-OSC/argus-cloud.git"
+    },
+    {
+      "path": "modules/enterprise",
+      "repository": "argus-enterprise",
+      "sha": "0eb9bdffe6143c09db8d9a3a14f3d7ece9d24004",
+      "visibility": "private",
+      "url": "https://github.com/Animus-OSC/argus-enterprise.git"
+    },
+    {
+      "path": "testbeds/datalab",
+      "repository": "animus-ml-datalab",
+      "sha": "a6ad02c939b8dfdc95b50df64ff324967d3dce27",
+      "visibility": "private",
+      "url": "https://github.com/Animus-OSC/animus-ml-datalab.git"
+    },
+    {
+      "path": "research/argus-rd",
+      "repository": "argus",
+      "sha": "a540846331c2dedf0124c0c9d94d246dd5440d6c",
+      "visibility": "private",
+      "url": "https://github.com/Animus-OSC/argus.git"
+    }
+  ]
+}

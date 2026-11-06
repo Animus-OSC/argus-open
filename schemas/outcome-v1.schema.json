@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://argus.invalid/schemas/outcome-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["state"],
+  "properties": {
+    "state": {"enum": ["PASS", "FAIL", "BLOCKED", "NOT_RUN", "UNCERTAIN"]},
+    "reason": {"type": "string"},
+    "evidence": {"$ref": "receipt-v1.schema.json"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"state": {"enum": ["PASS", "FAIL"]}}},
+      "then": {"required": ["evidence"]},
+      "else": {"not": {"required": ["evidence"]}}
+    }
+  ]
+}

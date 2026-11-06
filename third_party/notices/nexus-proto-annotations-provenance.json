@@ -1,0 +1,10 @@
+{
+  "module": "github.com/nexus-rpc/nexus-proto-annotations",
+  "pinned_version": "v0.1.0",
+  "upstream_notice_commit": "76486e7cc189d45cff9e02bc8deea75262a012b1",
+  "upstream_notice_url": "https://github.com/nexus-rpc/nexus-proto-annotations/blob/76486e7cc189d45cff9e02bc8deea75262a012b1/LICENSE",
+  "source_file": "vendor/github.com/nexus-rpc/nexus-proto-annotations/go/nexusannotations/v1/options.pb.go",
+  "source_sha256": "8c7c904a50db6778970b7bb919fd52dc380dc66cd9f8ea91369dd0f601ffec0c",
+  "source_identity": "v0.1.0 and upstream main generated file are byte-identical; root notice missing from pinned archive, included separately",
+  "license_notice_sha256": "06847bcc52e67fceae1691299bdd42dbfdff138c91e3ea89811a7aa2827988d6"
+}
