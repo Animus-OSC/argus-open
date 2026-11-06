@@ -1,4 +1,4 @@
-// Argus Phase 1 runs only a synthetic offline demonstration and verifier.
+// Argus provides a synthetic demo, receipt verification and an offline audit finalizer.
 package main
 
 import (
@@ -26,10 +26,12 @@ func main() { os.Exit(run(os.Args[1:], os.Stdout, os.Stderr)) }
 
 func run(args []string, stdout, stderr io.Writer) int {
 	if len(args) == 0 {
-		fmt.Fprintln(stderr, "usage: argus demo --state-dir ABSOLUTE_PATH --out NEW_FILE | verify --receipt FILE --sha256 DIGEST")
+		fmt.Fprintln(stderr, "usage: argus demo --state-dir ABSOLUTE_PATH --out NEW_FILE | verify --receipt FILE --sha256 DIGEST | audit --plan FILE --plan-sha256 DIGEST --results FILE --artifacts DIR --out NEW_FILE")
 		return 2
 	}
 	switch args[0] {
+	case "audit":
+		return auditCommand(args[1:], stdout, stderr)
 	case "demo":
 		f := flag.NewFlagSet("demo", flag.ContinueOnError)
 		f.SetOutput(stderr)

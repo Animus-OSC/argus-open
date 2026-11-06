@@ -4,4 +4,4 @@ The implemented synthetic slice separates event verification, project registry, 
 
 The target architecture adds independent control, reasoning, execution and integration planes. Ollama proposes; policy authorizes; workers execute; verified execution records determine scoped outcomes. MCP/CLI/provider adapters share one versioned task contract.
 
-Full project pipelines, final Markdown audit generation, real model integration and production promotion remain design work. A report must distinguish required stages, actual evidence, hypotheses, skipped checks and uncertainty.
+A separate local audit finalizer now checks a pinned expected plan, caller-collected observations and local artifact hashes, then emits Markdown. Full project execution, authenticated observation collection, real model integration and production promotion remain design work. A report must distinguish required stages, actual evidence, hypotheses, skipped checks and uncertainty.

@@ -1,6 +1,6 @@
 # Integrations
 
-Implemented: public Go interfaces, synthetic adapters, optional caller-supplied Temporal adapter and a separate external-adapter example module.
+Implemented: public Go interfaces, synthetic adapters, optional caller-supplied Temporal adapter, a separate external-adapter example module and provider-neutral offline audit finalization. See [audit CLI](AUDIT-CONTRACT.md).
 
 Design: GitHub Actions, GitLab CI, Jenkins and Zuul adapters over a shared task/evidence contract. Kubernetes is an execution backend; Helm packages deployment. None is mandatory for the OSS core.
 

@@ -23,19 +23,28 @@ func TaskDigest(t v1.Task) string {
 	return "sha256:" + hex.EncodeToString(h[:])
 }
 
-// Decode enforces exact v1 JSON field names and rejects duplicate or trailing
-// data before a caller verifies the independently held digest.
+// Decode enforces exact v1 JSON field names, required non-null values and
+// unambiguous encoding before verification against an independently held digest.
 func Decode(raw []byte) (v1.Envelope, error) {
 	var e v1.Envelope
-	if len(raw) == 0 || len(raw) > 64<<10 || !policy.UniqueJSON(raw) || !policy.ExactKeys(raw, "receipt", "sha256") {
+	if len(raw) == 0 || len(raw) > 64<<10 || !policy.UniqueJSON(raw) {
 		return e, errors.New("invalid evidence encoding")
 	}
-	var top, receipt map[string]json.RawMessage
-	if json.Unmarshal(raw, &top) != nil || !policy.ExactKeys(top["receipt"], "version", "task_id", "tenant_id", "project_id", "source_sha", "idempotency_key", "event_sha256", "policy_version", "model", "observation", "state") ||
-		json.Unmarshal(top["receipt"], &receipt) != nil || !policy.ExactKeys(receipt["model"], "provider", "digest") ||
-		!policy.ExactKeys(receipt["observation"], "operation", "worker", "exit_code", "tests_run", "started_at", "finished_at", "output_sha256") {
-		return e, errors.New("invalid evidence fields")
+	top, err := requiredObject(raw, "receipt", "sha256")
+	if err != nil {
+		return e, err
 	}
+	receipt, err := requiredObject(top["receipt"], "version", "task_id", "tenant_id", "project_id", "source_sha", "idempotency_key", "event_sha256", "policy_version", "model", "observation", "state")
+	if err != nil {
+		return e, err
+	}
+	if _, err := requiredObject(receipt["model"], "provider", "digest"); err != nil {
+		return e, err
+	}
+	if _, err := requiredObject(receipt["observation"], "operation", "worker", "exit_code", "tests_run", "started_at", "finished_at", "output_sha256"); err != nil {
+		return e, err
+	}
+
 	d := json.NewDecoder(bytes.NewReader(raw))
 	d.DisallowUnknownFields()
 	if err := d.Decode(&e); err != nil {
@@ -45,6 +54,22 @@ func Decode(raw []byte) (v1.Envelope, error) {
 		return e, errors.New("trailing evidence")
 	}
 	return e, nil
+}
+
+// encoding/json treats null as a no-op for scalar fields, including an int's
+// zero value. Inspect the wire values before typed decoding can erase that fact.
+func requiredObject(raw []byte, fields ...string) (map[string]json.RawMessage, error) {
+	var object map[string]json.RawMessage
+	if json.Unmarshal(raw, &object) != nil || len(object) != len(fields) {
+		return nil, errors.New("invalid evidence fields")
+	}
+	for _, field := range fields {
+		value, present := object[field]
+		if !present || bytes.Equal(bytes.TrimSpace(value), []byte("null")) {
+			return nil, errors.New("missing or null evidence field")
+		}
+	}
+	return object, nil
 }
 
 func Seal(r v1.Receipt) (v1.Envelope, error) {

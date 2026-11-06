@@ -9,3 +9,5 @@
 7. Extend models, data types and hardware only through versioned compatibility profiles and benchmarks.
 
 No milestone is complete because its repository or submodule exists.
+
+The current scoped sequence and acceptance criteria are maintained in [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md), informed by the linked primary-source research. The new finalizer completes only the local collection/format boundary, not the real-project execution or authenticated evidence gates.

@@ -1,0 +1,1207 @@
+{
+  "version": 1,
+  "description": "Shared selected JSON Schema and public Go Decode/Verify wire fixtures. Schema-only and cross-field/hash validity are distinct.",
+  "bases": {
+    "pass": {
+      "receipt": {
+        "version": "argus.receipt/v1",
+        "task_id": "task",
+        "tenant_id": "tenant",
+        "project_id": "project",
+        "source_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "idempotency_key": "key",
+        "event_sha256": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "policy_version": "policy/v1",
+        "model": {
+          "provider": "fake",
+          "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "observation": {
+          "operation": "synthetic-python-unit/v1",
+          "worker": "worker",
+          "exit_code": 0,
+          "tests_run": 2,
+          "started_at": "2026-01-01T00:00:00Z",
+          "finished_at": "2026-01-01T00:00:01Z",
+          "output_sha256": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "state": "PASS"
+      },
+      "sha256": "sha256:2344fcf5e4c41a31b00343c20682c0f016015e5cb6ec7bb34eced96b4ea53f9f"
+    },
+    "fail": {
+      "receipt": {
+        "version": "argus.receipt/v1",
+        "task_id": "task",
+        "tenant_id": "tenant",
+        "project_id": "project",
+        "source_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "idempotency_key": "key",
+        "event_sha256": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "policy_version": "policy/v1",
+        "model": {
+          "provider": "fake",
+          "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "observation": {
+          "operation": "synthetic-python-unit/v1",
+          "worker": "worker",
+          "exit_code": 1,
+          "tests_run": 2,
+          "started_at": "2026-01-01T00:00:00Z",
+          "finished_at": "2026-01-01T00:00:01Z",
+          "output_sha256": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "state": "FAIL"
+      },
+      "sha256": "sha256:dcaaf418c2444c8935960fe22303df729e7f2673826f4f0803cb88fe519d6174"
+    }
+  },
+  "cases": [
+    {
+      "name": "valid_pass",
+      "base": "pass",
+      "operation": "none",
+      "schema_valid": true,
+      "decode_valid": true,
+      "verify_valid": true
+    },
+    {
+      "name": "valid_fail",
+      "base": "fail",
+      "operation": "none",
+      "schema_valid": true,
+      "decode_valid": true,
+      "verify_valid": true
+    },
+    {
+      "name": "null_receipt",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt"
+      ],
+      "value": null
+    },
+    {
+      "name": "missing_receipt",
+      "base": "pass",
+      "operation": "delete",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt"
+      ]
+    },
+    {
+      "name": "wrong_type_receipt",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt"
+      ],
+      "value": []
+    },
+    {
+      "name": "null_sha256",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "sha256"
+      ],
+      "value": null
+    },
+    {
+      "name": "missing_sha256",
+      "base": "pass",
+      "operation": "delete",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "sha256"
+      ]
+    },
+    {
+      "name": "wrong_type_sha256",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "sha256"
+      ],
+      "value": {}
+    },
+    {
+      "name": "null_receipt_version",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "version"
+      ],
+      "value": null
+    },
+    {
+      "name": "missing_receipt_version",
+      "base": "pass",
+      "operation": "delete",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "version"
+      ]
+    },
+    {
+      "name": "wrong_type_receipt_version",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "version"
+      ],
+      "value": {}
+    },
+    {
+      "name": "null_receipt_task_id",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "task_id"
+      ],
+      "value": null
+    },
+    {
+      "name": "missing_receipt_task_id",
+      "base": "pass",
+      "operation": "delete",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "task_id"
+      ]
+    },
+    {
+      "name": "wrong_type_receipt_task_id",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "task_id"
+      ],
+      "value": {}
+    },
+    {
+      "name": "null_receipt_tenant_id",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "tenant_id"
+      ],
+      "value": null
+    },
+    {
+      "name": "missing_receipt_tenant_id",
+      "base": "pass",
+      "operation": "delete",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "tenant_id"
+      ]
+    },
+    {
+      "name": "wrong_type_receipt_tenant_id",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "tenant_id"
+      ],
+      "value": {}
+    },
+    {
+      "name": "null_receipt_project_id",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "project_id"
+      ],
+      "value": null
+    },
+    {
+      "name": "missing_receipt_project_id",
+      "base": "pass",
+      "operation": "delete",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "project_id"
+      ]
+    },
+    {
+      "name": "wrong_type_receipt_project_id",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "project_id"
+      ],
+      "value": {}
+    },
+    {
+      "name": "null_receipt_source_sha",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "source_sha"
+      ],
+      "value": null
+    },
+    {
+      "name": "missing_receipt_source_sha",
+      "base": "pass",
+      "operation": "delete",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "source_sha"
+      ]
+    },
+    {
+      "name": "wrong_type_receipt_source_sha",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "source_sha"
+      ],
+      "value": {}
+    },
+    {
+      "name": "null_receipt_idempotency_key",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "idempotency_key"
+      ],
+      "value": null
+    },
+    {
+      "name": "missing_receipt_idempotency_key",
+      "base": "pass",
+      "operation": "delete",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "idempotency_key"
+      ]
+    },
+    {
+      "name": "wrong_type_receipt_idempotency_key",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "idempotency_key"
+      ],
+      "value": {}
+    },
+    {
+      "name": "null_receipt_event_sha256",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "event_sha256"
+      ],
+      "value": null
+    },
+    {
+      "name": "missing_receipt_event_sha256",
+      "base": "pass",
+      "operation": "delete",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "event_sha256"
+      ]
+    },
+    {
+      "name": "wrong_type_receipt_event_sha256",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "event_sha256"
+      ],
+      "value": {}
+    },
+    {
+      "name": "null_receipt_policy_version",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "policy_version"
+      ],
+      "value": null
+    },
+    {
+      "name": "missing_receipt_policy_version",
+      "base": "pass",
+      "operation": "delete",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "policy_version"
+      ]
+    },
+    {
+      "name": "wrong_type_receipt_policy_version",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "policy_version"
+      ],
+      "value": {}
+    },
+    {
+      "name": "null_receipt_model",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "model"
+      ],
+      "value": null
+    },
+    {
+      "name": "missing_receipt_model",
+      "base": "pass",
+      "operation": "delete",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "model"
+      ]
+    },
+    {
+      "name": "wrong_type_receipt_model",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "model"
+      ],
+      "value": []
+    },
+    {
+      "name": "null_receipt_observation",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation"
+      ],
+      "value": null
+    },
+    {
+      "name": "missing_receipt_observation",
+      "base": "pass",
+      "operation": "delete",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation"
+      ]
+    },
+    {
+      "name": "wrong_type_receipt_observation",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation"
+      ],
+      "value": []
+    },
+    {
+      "name": "null_receipt_state",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "state"
+      ],
+      "value": null
+    },
+    {
+      "name": "missing_receipt_state",
+      "base": "pass",
+      "operation": "delete",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "state"
+      ]
+    },
+    {
+      "name": "wrong_type_receipt_state",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "state"
+      ],
+      "value": {}
+    },
+    {
+      "name": "null_receipt_model_provider",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "model",
+        "provider"
+      ],
+      "value": null
+    },
+    {
+      "name": "missing_receipt_model_provider",
+      "base": "pass",
+      "operation": "delete",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "model",
+        "provider"
+      ]
+    },
+    {
+      "name": "wrong_type_receipt_model_provider",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "model",
+        "provider"
+      ],
+      "value": {}
+    },
+    {
+      "name": "null_receipt_model_digest",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "model",
+        "digest"
+      ],
+      "value": null
+    },
+    {
+      "name": "missing_receipt_model_digest",
+      "base": "pass",
+      "operation": "delete",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "model",
+        "digest"
+      ]
+    },
+    {
+      "name": "wrong_type_receipt_model_digest",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "model",
+        "digest"
+      ],
+      "value": {}
+    },
+    {
+      "name": "null_receipt_observation_operation",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation",
+        "operation"
+      ],
+      "value": null
+    },
+    {
+      "name": "missing_receipt_observation_operation",
+      "base": "pass",
+      "operation": "delete",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation",
+        "operation"
+      ]
+    },
+    {
+      "name": "wrong_type_receipt_observation_operation",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation",
+        "operation"
+      ],
+      "value": {}
+    },
+    {
+      "name": "null_receipt_observation_worker",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation",
+        "worker"
+      ],
+      "value": null
+    },
+    {
+      "name": "missing_receipt_observation_worker",
+      "base": "pass",
+      "operation": "delete",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation",
+        "worker"
+      ]
+    },
+    {
+      "name": "wrong_type_receipt_observation_worker",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation",
+        "worker"
+      ],
+      "value": {}
+    },
+    {
+      "name": "null_receipt_observation_exit_code",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation",
+        "exit_code"
+      ],
+      "value": null
+    },
+    {
+      "name": "missing_receipt_observation_exit_code",
+      "base": "pass",
+      "operation": "delete",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation",
+        "exit_code"
+      ]
+    },
+    {
+      "name": "wrong_type_receipt_observation_exit_code",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation",
+        "exit_code"
+      ],
+      "value": "not-an-integer"
+    },
+    {
+      "name": "null_receipt_observation_tests_run",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation",
+        "tests_run"
+      ],
+      "value": null
+    },
+    {
+      "name": "missing_receipt_observation_tests_run",
+      "base": "pass",
+      "operation": "delete",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation",
+        "tests_run"
+      ]
+    },
+    {
+      "name": "wrong_type_receipt_observation_tests_run",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation",
+        "tests_run"
+      ],
+      "value": "not-an-integer"
+    },
+    {
+      "name": "null_receipt_observation_started_at",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation",
+        "started_at"
+      ],
+      "value": null
+    },
+    {
+      "name": "missing_receipt_observation_started_at",
+      "base": "pass",
+      "operation": "delete",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation",
+        "started_at"
+      ]
+    },
+    {
+      "name": "wrong_type_receipt_observation_started_at",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation",
+        "started_at"
+      ],
+      "value": {}
+    },
+    {
+      "name": "null_receipt_observation_finished_at",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation",
+        "finished_at"
+      ],
+      "value": null
+    },
+    {
+      "name": "missing_receipt_observation_finished_at",
+      "base": "pass",
+      "operation": "delete",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation",
+        "finished_at"
+      ]
+    },
+    {
+      "name": "wrong_type_receipt_observation_finished_at",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation",
+        "finished_at"
+      ],
+      "value": {}
+    },
+    {
+      "name": "null_receipt_observation_output_sha256",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation",
+        "output_sha256"
+      ],
+      "value": null
+    },
+    {
+      "name": "missing_receipt_observation_output_sha256",
+      "base": "pass",
+      "operation": "delete",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation",
+        "output_sha256"
+      ]
+    },
+    {
+      "name": "wrong_type_receipt_observation_output_sha256",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation",
+        "output_sha256"
+      ],
+      "value": {}
+    },
+    {
+      "name": "unknown_envelope",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "unexpected"
+      ],
+      "value": true
+    },
+    {
+      "name": "case_alias_envelope",
+      "base": "pass",
+      "operation": "rename",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt"
+      ],
+      "rename_to": "RECEIPT"
+    },
+    {
+      "name": "unknown_receipt",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "unexpected"
+      ],
+      "value": true
+    },
+    {
+      "name": "case_alias_receipt",
+      "base": "pass",
+      "operation": "rename",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "version"
+      ],
+      "rename_to": "VERSION"
+    },
+    {
+      "name": "unknown_receipt_model",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "model",
+        "unexpected"
+      ],
+      "value": true
+    },
+    {
+      "name": "case_alias_receipt_model",
+      "base": "pass",
+      "operation": "rename",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "model",
+        "provider"
+      ],
+      "rename_to": "PROVIDER"
+    },
+    {
+      "name": "unknown_receipt_observation",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation",
+        "unexpected"
+      ],
+      "value": true
+    },
+    {
+      "name": "case_alias_receipt_observation",
+      "base": "pass",
+      "operation": "rename",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation",
+        "operation"
+      ],
+      "rename_to": "OPERATION"
+    },
+    {
+      "name": "range_exit_code_-1",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": true,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation",
+        "exit_code"
+      ],
+      "value": -1
+    },
+    {
+      "name": "range_exit_code_256",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": true,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation",
+        "exit_code"
+      ],
+      "value": 256
+    },
+    {
+      "name": "range_tests_run_0",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": true,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation",
+        "tests_run"
+      ],
+      "value": 0
+    },
+    {
+      "name": "range_tests_run_100000",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": true,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation",
+        "tests_run"
+      ],
+      "value": 100000
+    },
+    {
+      "name": "fractional_exit",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation",
+        "exit_code"
+      ],
+      "value": 0.5
+    },
+    {
+      "name": "invalid_started_time",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation",
+        "started_at"
+      ],
+      "value": "not-a-date"
+    },
+    {
+      "name": "invalid_calendar_time",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation",
+        "started_at"
+      ],
+      "value": "2026-02-30T00:00:00Z"
+    },
+    {
+      "name": "invalid_finished_time",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": false,
+      "decode_valid": false,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation",
+        "finished_at"
+      ],
+      "value": "2026-01-01"
+    },
+    {
+      "name": "zero_time_semantics",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": true,
+      "decode_valid": true,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation",
+        "started_at"
+      ],
+      "value": "0001-01-01T00:00:00Z"
+    },
+    {
+      "name": "state_exit_semantics",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": true,
+      "decode_valid": true,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation",
+        "exit_code"
+      ],
+      "value": 1
+    },
+    {
+      "name": "time_order_semantics",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": true,
+      "decode_valid": true,
+      "verify_valid": false,
+      "path": [
+        "receipt",
+        "observation",
+        "finished_at"
+      ],
+      "value": "2025-12-31T23:59:59Z"
+    },
+    {
+      "name": "wrong_retained_digest",
+      "base": "pass",
+      "operation": "set",
+      "schema_valid": true,
+      "decode_valid": true,
+      "verify_valid": false,
+      "path": [
+        "sha256"
+      ],
+      "value": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  ]
+}
